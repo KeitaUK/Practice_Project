@@ -32,14 +32,15 @@
 *.app
 
 # Visual C++ cache files 
-47 ipch/ 
-48 *.aps 
-49 *.ncb 
-50 *.opensdf 
-51 *.sdf 
-52 *.cachefile 
+ipch/ 
+*.aps 
+*.ncb 
+*.opensdf 
+*.sdf 
+*.cachefile 
+*.VC.VC.opendb
 
 # Visual Studio profiler 
-55 *.psess 
-56 *.vsp 
-57 *.vspx 
+*.psess 
+*.vsp 
+*.vspx 
