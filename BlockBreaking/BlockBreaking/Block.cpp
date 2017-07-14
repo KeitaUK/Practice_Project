@@ -1,0 +1,79 @@
+#include "Block.h"
+#include <gl/freeglut.h>
+#include <stdio.h>
+
+Block::Block()
+{
+	color.r = 0.7;
+	color.g = 0.2;
+	color.b = 0.2;
+	posX = posY = 0;
+	width = 0.25;
+	height = 0.08;
+}
+
+Block::Block(float x, float y, float w, float h)
+{
+	color.r = 0.7;
+	color.g = 0.2;
+	color.b = 0.2;
+	posX = x;
+	posY = y;
+	width = w;
+	height = h;
+}
+
+
+
+Block::~Block()
+{
+}
+
+void Block::draw()
+{
+	if (isBroken)
+		return;
+
+	glClearColor(0.0, 0.0, 0.0,0.0);
+	glColor4f(color.r,color.g,color.b,0.0);
+
+	glRectf(posX - width/2, posY - height / 2,posX + width/2,posY + height/2);
+	
+	glFlush();
+}
+
+
+void Block::collisionWithBall(Ball& ball) 
+{
+	if (isBroken)
+		return;
+
+	//ボールが右側から触れたら反射
+	if ((ball.posX > posX )&& (ball.posX - ball.r <= posX + width / 2) &&( (ball.posY - ball.r  < posY + height / 2) && (ball.posY + ball.r  > posY - height / 2)))
+	{
+		ball.moveX = 0.1;
+		isBroken = true;
+	}
+
+	//ボールが左側から触れたら反射
+	if ((ball.posX < posX) && (ball.posX + ball.r >= posX - width / 2) && (ball.posY - ball.r < posY + height / 2) && (ball.posY + ball.r> posY - height / 2))
+	{
+		ball.moveX = -0.1;
+		isBroken = true;
+
+	}
+
+	//ボールが下側から触れたら反射
+	if ( (ball.posY < posY )&& (ball.posY + ball.r>= posY - height / 2) && (ball.posX - ball.r < posX + width / 2) && (ball.posX + ball.r  > posX - width / 2))
+	{
+		ball.moveY = -0.1;
+		isBroken = true;
+	}
+
+	//ボールが上から触れたら反射
+	if (( ball.posY > posY) && (ball.posY - ball.r  <= posY + height / 2) && (ball.posX - ball.r  < posX + width / 2) && (ball.posX + ball.r  > posX - width / 2))
+	{
+		ball.moveY = 0.1;
+		isBroken = true;
+	}
+}

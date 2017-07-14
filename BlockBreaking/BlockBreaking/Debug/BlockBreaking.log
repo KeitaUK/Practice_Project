@@ -1,0 +1,6 @@
+﻿  main.cpp
+  Ball.cpp
+c:\users\翔雅\documents\clonefolder\practice_project\blockbreaking\blockbreaking\ball.cpp(31): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+c:\users\翔雅\documents\clonefolder\practice_project\blockbreaking\blockbreaking\ball.cpp(32): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+  コードを生成中...
+LINK : fatal error LNK1104: ファイル 'freeglut.lib' を開くことができません。
