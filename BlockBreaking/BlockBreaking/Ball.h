@@ -7,6 +7,7 @@ public:
 	Color color;
 	double posX,posY;
 	double moveX,moveY;
+	double moveSize = 0.05;
 
 	Ball();
 	Ball(double radius, float red, float gleen, float blue);

@@ -34,12 +34,11 @@ void Block::draw()
 	if (isBroken)
 		return;
 
-	glClearColor(0.0, 0.0, 0.0,0.0);
 	glColor4f(color.r,color.g,color.b,0.0);
 
 	glRectf(posX - width/2, posY - height / 2,posX + width/2,posY + height/2);
 	
-	glFlush();
+
 }
 
 
@@ -49,31 +48,30 @@ void Block::collisionWithBall(Ball& ball)
 		return;
 
 	//ボールが右側から触れたら反射
-	if ((ball.posX > posX )&& (ball.posX - ball.r <= posX + width / 2) &&( (ball.posY - ball.r  < posY + height / 2) && (ball.posY + ball.r  > posY - height / 2)))
+	if ((ball.posX > posX) && ((ball.posX - ball.r * 2) <= (posX + (width / 2))) && ((ball.posY - ball.r) <= (posY + (height / 2))) && ((ball.posY + ball.r) >= (posY - (height / 2))))
 	{
-		ball.moveX = 0.1;
+		ball.moveX = ball.moveSize;
 		isBroken = true;
 	}
 
 	//ボールが左側から触れたら反射
-	if ((ball.posX < posX) && (ball.posX + ball.r >= posX - width / 2) && (ball.posY - ball.r < posY + height / 2) && (ball.posY + ball.r> posY - height / 2))
+	if ((ball.posX < posX) && ((ball.posX + ball.r * 2) >= (posX - (width / 2))) && ((ball.posY - ball.r) <= (posY + (height / 2))) && ((ball.posY + ball.r) >= (posY - (height / 2))))
 	{
-		ball.moveX = -0.1;
+		ball.moveX = -ball.moveSize;
 		isBroken = true;
-
 	}
 
 	//ボールが下側から触れたら反射
-	if ( (ball.posY < posY )&& (ball.posY + ball.r>= posY - height / 2) && (ball.posX - ball.r < posX + width / 2) && (ball.posX + ball.r  > posX - width / 2))
+	if ((ball.posY < posY) && ((ball.posY + ball.r * 2) >= (posY - (height / 2))) && ((ball.posX - ball.r) <= (posX + (width / 2))) && ((ball.posX + ball.r) >= (posX - (width / 2))))
 	{
-		ball.moveY = -0.1;
+		ball.moveY = -ball.moveSize;
 		isBroken = true;
 	}
 
 	//ボールが上から触れたら反射
-	if (( ball.posY > posY) && (ball.posY - ball.r  <= posY + height / 2) && (ball.posX - ball.r  < posX + width / 2) && (ball.posX + ball.r  > posX - width / 2))
+	if ((ball.posY > posY) && ((ball.posY - ball.r * 2) <= (posY + (height / 2))) && ((ball.posX - ball.r) <= (posX + (width / 2))) && ((ball.posX + ball.r) >= (posX - (width / 2))))
 	{
-		ball.moveY = 0.1;
+		ball.moveY = ball.moveSize;
 		isBroken = true;
 	}
 }

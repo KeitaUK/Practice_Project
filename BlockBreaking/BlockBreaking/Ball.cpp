@@ -6,6 +6,7 @@
 #define M_PI 3.14159265358979
 #define PART 100
 
+
 Ball::Ball()
 {
 	r = 0.5;
@@ -14,8 +15,8 @@ Ball::Ball()
 	color.b = 1.0;
 	posX = 0;
 	posY = 0;
-	moveX = 0.1;
-	moveY = 0.0;
+	moveX = moveSize;
+	moveY = moveSize;
 }
 
 Ball::Ball(double radius, float red, float gleen, float blue)
@@ -26,8 +27,8 @@ Ball::Ball(double radius, float red, float gleen, float blue)
 	color.b = blue;
 	posX = 0;
 	posY = 0;
-	moveX = 0.1;
-	moveY = 0.0;
+	moveX = moveSize;
+	moveY = moveSize;
 }
 
 Ball::Ball(double radius,double x,double y, float red, float gleen, float blue)
@@ -38,8 +39,8 @@ Ball::Ball(double radius,double x,double y, float red, float gleen, float blue)
 	color.r = red;
 	color.g = gleen;
 	color.b = blue;
-	moveX = 0.1;
-	moveY = -0.1;
+	moveX = moveSize;
+	moveY = -moveSize;
 }
 
 Ball::~Ball()
@@ -55,7 +56,8 @@ void Ball::draw()
 
 	glColor3f(color.r, color.g, color.b);
 	glBegin(GL_POLYGON);
-
+	glEnable(GL_LINE_STIPPLE);
+	glLineStipple(1, 0xACF3);
 	for (i = 0; i < n; i++)
 	{
 		rate = (double)i / n;
@@ -65,7 +67,7 @@ void Ball::draw()
 	}
 
 	glEnd();
-	glFlush();
+
 }
 
 void Ball::draw(double posX, double posY)
@@ -95,9 +97,9 @@ void Ball::moveBall()
 	posX += moveX;
 	posY += moveY;
 
-	if (posX > 1 - r * 2) moveX = -0.1;
-	else if (posX < -1 + r * 2) moveX = 0.1;
+	if (posX > 1 - r ) moveX = -moveSize;
+	else if (posX < -1 + r ) moveX = moveSize;
 	
-	if (posY > 1 - r * 2)moveY = -0.1;
-	else if (posY < -1 + r * 2) moveY = 0.1;
+	if (posY > 1 - r )moveY = -moveSize;
+	else if (posY < -1 + r ) moveY = moveSize;
 }
