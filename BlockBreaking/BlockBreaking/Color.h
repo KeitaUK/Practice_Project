@@ -1,4 +1,7 @@
 #pragma once
+#ifndef INCLUDE_COLOR
+#define INCLUDE_COLOR
+
 class Color
 {
 public:
@@ -11,3 +14,4 @@ public:
 	float b;
 };
 
+#endif // !INCLUDE_COLOR

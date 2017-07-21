@@ -6,32 +6,20 @@
 #define M_PI 3.14159265358979
 #define PART 100
 
-
 Ball::Ball()
 {
-	r = 0.5;
-	color.r = 1.0;
-	color.g = 1.0;
-	color.b = 1.0;
-	posX = 0;
-	posY = 0;
-	moveX = moveSize;
-	moveY = moveSize;
+
 }
 
-Ball::Ball(double radius, float red, float gleen, float blue)
-{
-	r = radius;
-	color.r = red;
-	color.g = gleen;
-	color.b = blue;
-	posX = 0;
-	posY = 0;
-	moveX = moveSize;
-	moveY = moveSize;
-}
-
-Ball::Ball(double radius,double x,double y, float red, float gleen, float blue)
+/*
+* @param[in] radius ”¼Œa
+* @param[in] x xÀ•W
+* @param[in] y yÀ•W
+* @param[in] red colorR
+* @param[in] gleen colorG
+* @param[in] blue colorB
+*/
+Ball::Ball(float radius, float x, float y, float red, float gleen, float blue)
 {
 	r = radius;
 	posX = x;
@@ -70,7 +58,7 @@ void Ball::draw()
 
 }
 
-void Ball::draw(double posX, double posY)
+void Ball::draw(float posX, float posY)
 {
 	int i, n = PART;
 	double rate;
@@ -97,9 +85,9 @@ void Ball::moveBall()
 	posX += moveX;
 	posY += moveY;
 
-	if (posX > 1 - r ) moveX = -moveSize;
-	else if (posX < -1 + r ) moveX = moveSize;
+	if (posX >= Constants::WIDTH - r ) moveX = -moveSize;
+	else if (posX <= 0 + r ) moveX = moveSize;
 	
-	if (posY > 1 - r )moveY = -moveSize;
-	else if (posY < -1 + r ) moveY = moveSize;
+	if (posY >= Constants::HEIGHT - r )moveY = -moveSize;
+	else if (posY <= 0 + r ) moveY = moveSize;
 }

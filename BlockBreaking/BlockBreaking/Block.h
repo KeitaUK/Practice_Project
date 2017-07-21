@@ -1,6 +1,13 @@
 #pragma once
+#ifndef INCLUDE_BLOCK
+#define INCLUDE_BLOCK
+
 #include "Color.h"
 #include "Ball.h"
+#include "ObjectManager.h"
+#include "ScoreManager.h"
+#include <time.h>
+
 
 class Block
 {
@@ -14,6 +21,8 @@ public:
 	bool isBroken = false;
 
 	void draw();
-	void collisionWithBall(Ball& ball);
+	void collisionWithBall(Ball& ball, ObjectManager& objectMgr, ScoreManager& scoreMgr);
+
 };
 
+#endif // !
