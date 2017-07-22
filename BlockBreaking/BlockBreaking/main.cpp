@@ -4,20 +4,14 @@
 #include <iostream>
 #include <string>
 
-#include "Ball.h"
 #include "Block.h"
-#include "Bar.h"
-#include "Item.h"
 #include "ObjectManager.h"
 #include "GUI.h"
 #include "ScoreManager.h"
 #include "Constants.h"
 
-#define BLOCK_HEIGHT_NUM 6
-#define BLOCK_WIDTH_NUM 8
 
-Block blocks[BLOCK_HEIGHT_NUM][BLOCK_WIDTH_NUM];
-Bar bar;
+Block blocks[Constants::BLOCK_NUM_HEIGHT][Constants::BLOCK_NUM_WIDTH];
 ObjectManager objectManager;
 ScoreManager scoreManager;
 
@@ -55,18 +49,20 @@ int main(int argc, char *argv[])
 
 void init()
 {
-	for (int y = 0; y < BLOCK_HEIGHT_NUM; y++)
+	for (int y = 0; y < Constants::BLOCK_NUM_HEIGHT; y++)
 	{
-		for (int x = 0; x < BLOCK_WIDTH_NUM; x++)
+		for (int x = 0; x < Constants::BLOCK_NUM_WIDTH; x++)
 		{
 			blocks[y][x].posX = (float)x * 60 + blocks[y][x].width /2 + 10;
 			blocks[y][x].posY = (float)y * 20 + blocks[y][x].height /2 + 10;
-			blocks[y][x].color.r = 1.0f * x/BLOCK_WIDTH_NUM;
-			blocks[y][x].color.g = 1.0f - 1.0f * y/BLOCK_HEIGHT_NUM;
-			blocks[y][x].color.b = ((float)( x / BLOCK_WIDTH_NUM ) + (float)( y / BLOCK_HEIGHT_NUM )) / 2;
-
+			blocks[y][x].color.r = 1.0f * x/Constants::BLOCK_NUM_WIDTH;
+			blocks[y][x].color.g = 1.0f - 1.0f * y/Constants::BLOCK_NUM_HEIGHT;
+			blocks[y][x].color.b = ((float)( x / Constants::BLOCK_NUM_WIDTH ) + (float)( y / Constants::BLOCK_NUM_HEIGHT )) / 2;
 		}
 	}
+
+	objectManager.CreateBall(10,400, 400,scoreManager);
+
 }
 
 
@@ -74,35 +70,45 @@ void display()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClearColor(0, 0, 0, 0.0);
+	
+	if (scoreManager.isGameClear)
+	{
+		GUI::DrawString("Congratulations", Constants::WIDTH, Constants::HEIGHT, Constants::WIDTH / 2 - 70, Constants::HEIGHT / 2);
+	}
+	else if (scoreManager.isGameOver)
+	{
+		GUI::DrawString("Game Over.", Constants::WIDTH, Constants::HEIGHT, Constants::WIDTH / 2 - 50, Constants::HEIGHT / 2);
+	}
 
 	objectManager.drawBalls();
-	bar.draw();
+	objectManager.drawBars();
 
-	for (int i = 0; i <objectManager.items.size(); i++)
+	for (int i = 0; i < objectManager.items.size(); i++)
 	{
 		objectManager.items[i].draw();
 	}
 
-	for (int y = 0; y < BLOCK_HEIGHT_NUM; y++)
+	for (int y = 0; y < Constants::BLOCK_NUM_HEIGHT; y++)
 	{
-		for (int x = 0; x < BLOCK_WIDTH_NUM; x++)
+		for (int x = 0; x < Constants::BLOCK_NUM_WIDTH; x++)
 		{
 			blocks[y][x].draw();
 		}
 	}
-	GUI::DrawString("SCORE = " + std::to_string(scoreManager.s_score),Constants::WIDTH,Constants::HEIGHT,Constants::WIDTH - 100,Constants::HEIGHT - 10);
-	glutSwapBuffers();
-}
+	GUI::DrawString("SCORE = " + std::to_string(scoreManager.s_score), Constants::WIDTH, Constants::HEIGHT, Constants::WIDTH - 100, Constants::HEIGHT - 10);
 
+	glutSwapBuffers();
+
+}
 void keyboard(int key, int x, int y)
 {
 	switch (key)
 	{
 	case GLUT_KEY_RIGHT:
-		bar.move(10);
+		objectManager.bar.move(10);
 		break;
 	case GLUT_KEY_LEFT:
-		bar.move(-10);
+		objectManager.bar.move(-10);
 		break;
 	}
 	
@@ -111,19 +117,28 @@ void keyboard(int key, int x, int y)
 
 void mouse( int x, int y)
 {
-	bar.posX = (float)x;
+	if (scoreManager.isGameClear || scoreManager.isGameOver)
+	{
+		return;
+	}
+	objectManager.bar.posX = (float)x;
 }
 
 void timer(int value)
 {
-	objectManager.moveBalls();
-	
-	//blockのあたり判定
-	for (int y = 0; y < BLOCK_HEIGHT_NUM; y++)
+	if (scoreManager.isGameClear || scoreManager.isGameOver)
 	{
-		for (int x = 0; x < BLOCK_WIDTH_NUM; x++)
+		return;
+	}
+
+	objectManager.moveBalls(scoreManager);
+
+	//blockのあたり判定
+	for (int y = 0; y < Constants::BLOCK_NUM_HEIGHT; y++)
+	{
+		for (int x = 0; x < Constants::BLOCK_NUM_WIDTH; x++)
 		{
-			for(int i = 0;i< objectManager.balls.size();i++)
+			for (int i = 0; i < objectManager.balls.size(); i++)
 			{
 				blocks[y][x].collisionWithBall(objectManager.balls[i], objectManager, scoreManager);
 			}
@@ -131,20 +146,20 @@ void timer(int value)
 	}
 
 	//barのあたり判定
-	for (int i = 0; i< objectManager.balls.size(); i++)
-		bar.collisionWithBall(objectManager.balls[i]);
-	
+	for (int i = 0; i < objectManager.balls.size(); i++)
+		objectManager.bar.collisionWithBall(objectManager.balls[i]);
+
 	//itemのあたり判定
 	for (int i = 0; i < objectManager.items.size(); i++)
 	{
 		objectManager.items[i].move();
-		objectManager.items[i].collisionWithBar(bar, scoreManager,&objectManager);
+		objectManager.items[i].collisionWithBar(objectManager.bar, scoreManager, objectManager);
 	}
-	
+
 	glutPostRedisplay();
 	glutTimerFunc(50, timer, 0);
-}
 
+}
 
 void resize(int w,int h)
 {

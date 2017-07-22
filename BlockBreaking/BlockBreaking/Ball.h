@@ -4,6 +4,7 @@
 
 #include "Color.h"
 #include "Constants.h"
+#include "ScoreManager.h"
 
 class Ball
 {
@@ -13,15 +14,14 @@ public:
 	float posX,posY;
 	float moveX,moveY;
 	float moveSize = 10;
-
+	bool isDeleted = false;
 	Ball();
-	Ball(float radius, float x, float y, float red, float gleen, float blue);
-
+	Ball(float radius, float x, float y, Color& col);
 	~Ball();
 	void draw();
 	void draw(float posX, float posY);
 	void draw(float posX, float posY, float red, float gleen, float blue);
-	void moveBall();
+	void moveBall(ScoreManager& scoreMgr);
 };
 
 #endif

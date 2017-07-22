@@ -78,6 +78,12 @@ void Block::collisionWithBall(Ball& ball,ObjectManager& objectMgr, ScoreManager&
 	if (isBroken)
 	{
 		scoreMgr.s_score++;
+		scoreMgr.breakBlockNum++;
+		if (scoreMgr.breakBlockNum == Constants::BLOCK_NUM_HEIGHT * Constants::BLOCK_NUM_WIDTH)
+		{
+			scoreMgr.isGameClear = true;
+		}
+
 		srand((unsigned int)time(NULL));
 		int num = rand() % 3;
 		if (num == 0)

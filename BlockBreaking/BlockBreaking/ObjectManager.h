@@ -4,6 +4,7 @@
 #define INCLUDED_ObjectManager_h
 
 #include "Ball.h"
+#include "Bar.h"
 #include "Item.h"
 #include <vector>
 using namespace std;
@@ -17,11 +18,17 @@ public:
 	~ObjectManager();
 	vector<Ball> balls;
 	vector<Item> items;
+	Bar bar;
+
 	void CreateItem(float posX,float poxY);
-	void CreateBall(float posX,float posY);
-	int getArrayNumBall();
+	void CreateBall(float posX,float posY, ScoreManager& scoreMgr);
+	void CreateBall(int scale,float posX, float posY, ScoreManager& scoreMgr);
+
 	void drawBalls();
-	void moveBalls();
+	void moveBalls(ScoreManager& scoreMgr);
+	void drawBars();
+	void scaleChangeBar(float deltaX);
+	void scaleChangeBarRand();
 };
 
 #endif // !INCLUDED_ObjectManager_h
