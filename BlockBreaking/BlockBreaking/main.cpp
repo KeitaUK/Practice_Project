@@ -18,7 +18,7 @@ ScoreManager scoreManager;
 //メソッドの宣言
 void init();
 void display();
-void keyboard(int key, int x, int y);
+void keyboard(unsigned char key, int x, int y);
 void timer(int value);
 void resize(int w, int h);
 void mouse( int x, int y);
@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
 	glClearColor(0, 0, 0, 1.0);
 	glutReshapeFunc(resize);
 	glutTimerFunc(50,timer,0);
-	glutSpecialFunc(keyboard);
+	glutKeyboardFunc(keyboard);
 	glutPassiveMotionFunc(mouse);
 	glutMainLoop();
 
@@ -49,6 +49,8 @@ int main(int argc, char *argv[])
 
 void init()
 {
+	scoreManager.reset();
+	objectManager.initialize();
 	for (int y = 0; y < Constants::BLOCK_NUM_HEIGHT; y++)
 	{
 		for (int x = 0; x < Constants::BLOCK_NUM_WIDTH; x++)
@@ -58,6 +60,7 @@ void init()
 			blocks[y][x].color.r = 1.0f * x/Constants::BLOCK_NUM_WIDTH;
 			blocks[y][x].color.g = 1.0f - 1.0f * y/Constants::BLOCK_NUM_HEIGHT;
 			blocks[y][x].color.b = ((float)( x / Constants::BLOCK_NUM_WIDTH ) + (float)( y / Constants::BLOCK_NUM_HEIGHT )) / 2;
+			blocks[y][x].isBroken = false;
 		}
 	}
 
@@ -74,10 +77,14 @@ void display()
 	if (scoreManager.isGameClear)
 	{
 		GUI::DrawString("Congratulations", Constants::WIDTH, Constants::HEIGHT, Constants::WIDTH / 2 - 70, Constants::HEIGHT / 2);
+		GUI::DrawString("Spase Key : Retry", Constants::WIDTH, Constants::HEIGHT, Constants::WIDTH / 2 - 70, Constants::HEIGHT / 2 + 15);
+		GUI::DrawString("Q key : exit", Constants::WIDTH, Constants::HEIGHT, Constants::WIDTH / 2 - 70, Constants::HEIGHT / 2+ 15 + 15);
 	}
 	else if (scoreManager.isGameOver)
 	{
 		GUI::DrawString("Game Over.", Constants::WIDTH, Constants::HEIGHT, Constants::WIDTH / 2 - 50, Constants::HEIGHT / 2);
+		GUI::DrawString("Spase Key : Retry", Constants::WIDTH, Constants::HEIGHT, Constants::WIDTH / 2 - 70, Constants::HEIGHT / 2 + 15);
+		GUI::DrawString("Q key : exit", Constants::WIDTH, Constants::HEIGHT, Constants::WIDTH / 2 - 70, Constants::HEIGHT / 2 + 15 + 15);
 	}
 
 	objectManager.drawBalls();
@@ -100,63 +107,67 @@ void display()
 	glutSwapBuffers();
 
 }
-void keyboard(int key, int x, int y)
+void keyboard(unsigned char key, int x, int y)
 {
-	switch (key)
+	if (scoreManager.isGameClear || scoreManager.isGameOver)
 	{
-	case GLUT_KEY_RIGHT:
-		objectManager.bar.move(10);
-		break;
-	case GLUT_KEY_LEFT:
-		objectManager.bar.move(-10);
-		break;
+
+		switch (key)
+		{
+		case 'q':
+		case 'Q':
+		case '\033':
+			exit(0);
+			break;
+		case ' ':
+			init();
+			break;
+		}
+
+		glutPostRedisplay();
 	}
-	
-	glutPostRedisplay();
 }
 
 void mouse( int x, int y)
 {
-	if (scoreManager.isGameClear || scoreManager.isGameOver)
+	if (scoreManager.isGameClear == 0 && scoreManager.isGameOver == 0)
 	{
-		return;
+		objectManager.bar.posX = (float)x;
 	}
-	objectManager.bar.posX = (float)x;
 }
 
 void timer(int value)
 {
-	if (scoreManager.isGameClear || scoreManager.isGameOver)
+	if (scoreManager.isGameClear == 0 && scoreManager.isGameOver == 0)
 	{
-		return;
-	}
 
-	objectManager.moveBalls(scoreManager);
+		objectManager.moveBalls(scoreManager);
 
-	//blockのあたり判定
-	for (int y = 0; y < Constants::BLOCK_NUM_HEIGHT; y++)
-	{
-		for (int x = 0; x < Constants::BLOCK_NUM_WIDTH; x++)
+		//blockのあたり判定
+		for (int y = 0; y < Constants::BLOCK_NUM_HEIGHT; y++)
 		{
-			for (int i = 0; i < objectManager.balls.size(); i++)
+			for (int x = 0; x < Constants::BLOCK_NUM_WIDTH; x++)
 			{
-				blocks[y][x].collisionWithBall(objectManager.balls[i], objectManager, scoreManager);
+				for (int i = 0; i < objectManager.balls.size(); i++)
+				{
+					blocks[y][x].collisionWithBall(objectManager.balls[i], objectManager, scoreManager);
+				}
 			}
 		}
+
+		//barのあたり判定
+		for (int i = 0; i < objectManager.balls.size(); i++)
+			objectManager.bar.collisionWithBall(objectManager.balls[i]);
+
+		//itemのあたり判定
+		for (int i = 0; i < objectManager.items.size(); i++)
+		{
+			objectManager.items[i].move();
+			objectManager.items[i].collisionWithBar(objectManager.bar, scoreManager, objectManager);
+		}
+
+		glutPostRedisplay();
 	}
-
-	//barのあたり判定
-	for (int i = 0; i < objectManager.balls.size(); i++)
-		objectManager.bar.collisionWithBall(objectManager.balls[i]);
-
-	//itemのあたり判定
-	for (int i = 0; i < objectManager.items.size(); i++)
-	{
-		objectManager.items[i].move();
-		objectManager.items[i].collisionWithBar(objectManager.bar, scoreManager, objectManager);
-	}
-
-	glutPostRedisplay();
 	glutTimerFunc(50, timer, 0);
 
 }

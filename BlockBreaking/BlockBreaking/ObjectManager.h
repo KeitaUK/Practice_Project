@@ -29,6 +29,7 @@ public:
 	void drawBars();
 	void scaleChangeBar(float deltaX);
 	void scaleChangeBarRand();
+	void initialize();
 };
 
 #endif // !INCLUDED_ObjectManager_h

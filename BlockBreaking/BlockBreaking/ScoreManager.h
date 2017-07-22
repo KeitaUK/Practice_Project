@@ -7,9 +7,10 @@ public:
 	int s_score = 0;
 	int breakBlockNum = 0;
 	int ballNum = 0;
-	bool isGameClear = false;
-	bool isGameOver = false;
+	int isGameClear = 0;
+	int isGameOver = 0;
 	
 	void decreaseBallNum();
+	void reset();
 };
 

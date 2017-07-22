@@ -14,9 +14,11 @@ public:
 	float posX, posY;
 	Color color;
 
+	void reset();
 	void draw();
 	void collisionWithBall(Ball& ball);
 	void move(float deltaX);
+
 };
 
 

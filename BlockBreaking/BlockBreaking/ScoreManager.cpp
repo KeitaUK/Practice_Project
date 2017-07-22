@@ -14,5 +14,15 @@ void ScoreManager::decreaseBallNum()
 {
 	ballNum--;
 	if (ballNum == 0)
-		isGameOver = true;
+		isGameOver = 1;
+}
+
+void ScoreManager::reset()
+{
+	s_score = 0;
+	breakBlockNum = 0;
+	ballNum = 0;
+	isGameClear = 0;
+	isGameOver = 0;
+
 }

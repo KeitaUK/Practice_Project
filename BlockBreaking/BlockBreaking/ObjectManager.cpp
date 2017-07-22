@@ -19,6 +19,15 @@ void ObjectManager::CreateItem(float posX,float posY)
 	items.push_back(newItem);
 }
 
+void ObjectManager::initialize()
+{
+	items.clear();
+	balls.clear();
+	bar.reset();
+}
+
+
+
 void ObjectManager::CreateBall(float posX, float posY,ScoreManager& scoreMgr) 
 {
 	//Ball ball(10,400 ,400 ,0.945f, 0.537f, 0);
@@ -76,5 +85,6 @@ void ObjectManager::scaleChangeBarRand()
 	{
 		deltaX = -deltaX;
 	}
-	bar.width += deltaX;
+	if(bar.width - deltaX >50)
+		bar.width += deltaX;
 }

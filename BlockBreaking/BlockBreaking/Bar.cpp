@@ -58,3 +58,14 @@ void Bar::move(float deltaX)
 		posX = width/2;
 	}
 }
+
+void Bar::reset()
+{
+	color.r = 0.0;
+	color.g = 0.031;
+	color.b = 0.235;
+	posX = 250;
+	posY = 450;
+	width = 200;
+	height = 10;
+}
