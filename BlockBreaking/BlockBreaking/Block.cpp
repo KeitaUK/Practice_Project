@@ -41,8 +41,7 @@ void Block::draw()
 
 }
 
-#include <iostream>
-using namespace std;
+
 void Block::collisionWithBall(Ball& ball,ObjectManager& objectMgr, ScoreManager& scoreMgr)
 {
 	if (isBroken)

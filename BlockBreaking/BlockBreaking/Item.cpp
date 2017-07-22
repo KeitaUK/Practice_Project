@@ -49,7 +49,7 @@ void Item::move()
 	}
 }
 
-void Item::collisionWithBar(Bar& bar,ScoreManager& scoreMgr,ObjectManager& objectMgr)
+void Item::collisionWithBar(Bar& bar,ScoreManager& scoreMgr,ObjectManager* objectMgr)
 {
 	if (isDeleted)
 		return;
@@ -61,7 +61,7 @@ void Item::collisionWithBar(Bar& bar,ScoreManager& scoreMgr,ObjectManager& objec
 	{
 		scoreMgr.s_score++;
 		isDeleted = true;
-		objectMgr.CreateBall(posX,posY);
+		objectMgr->CreateBall(posX,posY);
 	}
 }
 

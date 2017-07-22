@@ -18,7 +18,7 @@ public:
 	~Item();
 	void draw();
 	void move();
-	void collisionWithBar(Bar& bar, ScoreManager& scoreMgr, ObjectManager& objectMgr);
+	void collisionWithBar(Bar& bar, ScoreManager& scoreMgr, ObjectManager* objectMgr);
 	float posX,posY;
 	float deltaX, deltaY;
 	float width, height;

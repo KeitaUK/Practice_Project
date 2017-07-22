@@ -27,6 +27,7 @@ void display();
 void keyboard(int key, int x, int y);
 void timer(int value);
 void resize(int w, int h);
+void mouse( int x, int y);
 
 int main(int argc, char *argv[])
 {
@@ -45,7 +46,7 @@ int main(int argc, char *argv[])
 	glutReshapeFunc(resize);
 	glutTimerFunc(50,timer,0);
 	glutSpecialFunc(keyboard);
-
+	glutPassiveMotionFunc(mouse);
 	glutMainLoop();
 
 	return 0;
@@ -104,7 +105,13 @@ void keyboard(int key, int x, int y)
 		bar.move(-10);
 		break;
 	}
+	
 	glutPostRedisplay();
+}
+
+void mouse( int x, int y)
+{
+	bar.posX = (float)x;
 }
 
 void timer(int value)
@@ -131,7 +138,7 @@ void timer(int value)
 	for (int i = 0; i < objectManager.items.size(); i++)
 	{
 		objectManager.items[i].move();
-		objectManager.items[i].collisionWithBar(bar, scoreManager,objectManager);
+		objectManager.items[i].collisionWithBar(bar, scoreManager,&objectManager);
 	}
 	
 	glutPostRedisplay();
