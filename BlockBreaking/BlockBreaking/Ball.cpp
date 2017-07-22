@@ -6,40 +6,34 @@
 #define M_PI 3.14159265358979
 #define PART 100
 
-
 Ball::Ball()
 {
-	r = 0.5;
-	color.r = 1.0;
-	color.g = 1.0;
-	color.b = 1.0;
-	posX = 0;
-	posY = 0;
-	moveX = moveSize;
-	moveY = moveSize;
+
 }
 
-Ball::Ball(double radius, float red, float gleen, float blue)
-{
-	r = radius;
-	color.r = red;
-	color.g = gleen;
-	color.b = blue;
-	posX = 0;
-	posY = 0;
-	moveX = moveSize;
-	moveY = moveSize;
-}
-
-Ball::Ball(double radius,double x,double y, float red, float gleen, float blue)
+/*
+* @param[in] radius ”¼Œa
+* @param[in] x xÀ•W
+* @param[in] y yÀ•W
+* @param[in] red colorR
+* @param[in] gleen colorG
+* @param[in] blue colorB
+*/
+Ball::Ball(float radius, float x, float y, Color& col)
 {
 	r = radius;
 	posX = x;
 	posY = y;
-	color.r = red;
-	color.g = gleen;
-	color.b = blue;
+	color.r = col.r;
+	color.g = col.g;
+	color.b = col.b;
+	
 	moveX = moveSize;
+	if (rand() % 2 == 0)
+	{
+		moveX = -moveSize;
+	}
+
 	moveY = -moveSize;
 }
 
@@ -50,6 +44,9 @@ Ball::~Ball()
 
 void Ball::draw()
 {
+	if (isDeleted)
+		return;
+
 	int i, n = PART;
 	double rate;
 	double x, y = 0.5;
@@ -70,8 +67,11 @@ void Ball::draw()
 
 }
 
-void Ball::draw(double posX, double posY)
+void Ball::draw(float posX, float posY)
 {
+	if (isDeleted)
+		return;
+	
 	int i, n = PART;
 	double rate;
 	double x, y = 0.5;
@@ -92,14 +92,22 @@ void Ball::draw(double posX, double posY)
 	glFlush();
 }
 
-void Ball::moveBall()
+void Ball::moveBall(ScoreManager& scoreMgr)
 {
+	if (isDeleted)
+		return;
+
 	posX += moveX;
 	posY += moveY;
 
-	if (posX > 1 - r ) moveX = -moveSize;
-	else if (posX < -1 + r ) moveX = moveSize;
+	if (posX >= Constants::WIDTH - r ) moveX = -moveSize;
+	else if (posX <= 0 + r ) moveX = moveSize;
 	
-	if (posY > 1 - r )moveY = -moveSize;
-	else if (posY < -1 + r ) moveY = moveSize;
+	//‰æ–Ê‰º‚ÉG‚ê‚½‚Æ‚«‚Ìˆ—
+	if (posY >= Constants::HEIGHT - r)
+	{
+		isDeleted = true;
+		scoreMgr.decreaseBallNum();
+	}
+	else if (posY <= 0 + r ) moveY = moveSize;
 }

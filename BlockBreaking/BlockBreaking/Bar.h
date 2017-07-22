@@ -1,7 +1,10 @@
 #pragma once
+#ifndef INCLUDE_BAR
+#define INCLUDE_BAR
+
 #include "Color.h"
 #include "Ball.h"
-
+#include "Constants.h"
 class Bar
 {
 public:
@@ -11,8 +14,12 @@ public:
 	float posX, posY;
 	Color color;
 
+	void reset();
 	void draw();
 	void collisionWithBall(Ball& ball);
 	void move(float deltaX);
+
 };
 
+
+#endif

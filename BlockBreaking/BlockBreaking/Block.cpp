@@ -8,8 +8,8 @@ Block::Block()
 	color.g = 0.2;
 	color.b = 0.2;
 	posX = posY = 0;
-	width = 0.25;
-	height = 0.08;
+	width = 60;
+	height = 20;
 }
 
 Block::Block(float x, float y, float w, float h)
@@ -42,7 +42,7 @@ void Block::draw()
 }
 
 
-void Block::collisionWithBall(Ball& ball) 
+void Block::collisionWithBall(Ball& ball,ObjectManager& objectMgr, ScoreManager& scoreMgr)
 {
 	if (isBroken)
 		return;
@@ -73,5 +73,21 @@ void Block::collisionWithBall(Ball& ball)
 	{
 		ball.moveY = ball.moveSize;
 		isBroken = true;
+	}
+
+	if (isBroken)
+	{
+		scoreMgr.s_score++;
+		scoreMgr.breakBlockNum++;
+		if (scoreMgr.breakBlockNum == Constants::BLOCK_NUM_HEIGHT * Constants::BLOCK_NUM_WIDTH)
+		{
+			scoreMgr.isGameClear = 1;
+		}
+
+		srand((unsigned int)time(NULL));
+		int num = rand() % 3;
+		if (num == 0)
+			return;
+		objectMgr.CreateItem(posX,posY);
 	}
 }
