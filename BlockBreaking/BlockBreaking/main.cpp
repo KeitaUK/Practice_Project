@@ -9,15 +9,18 @@
 #include "GUI.h"
 #include "ScoreManager.h"
 #include "Constants.h"
+#include "Texture.h"
 
 
 Block blocks[Constants::BLOCK_NUM_HEIGHT][Constants::BLOCK_NUM_WIDTH];
 ObjectManager objectManager;
 ScoreManager scoreManager;
+Texture background;
 
 //メソッドの宣言
 void init();
 void display();
+void idle(void);
 void keyboard(unsigned char key, int x, int y);
 void timer(int value);
 void resize(int w, int h);
@@ -25,21 +28,19 @@ void mouse( int x, int y);
 
 int main(int argc, char *argv[])
 {
-	init();
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_RGBA);
-	glutInitDisplayMode(GLUT_DOUBLE);
+	glutInitDisplayMode(GLUT_RGBA|GLUT_DOUBLE);
 	glutInitWindowSize(Constants::WIDTH, Constants::HEIGHT);
 	glutCreateWindow("Hello OpenGL");
 	glutDisplayFunc(display);
-	
+	init();
 	glClearColor(0, 0, 0, 1.0);
 	glutReshapeFunc(resize);
 	glutTimerFunc(50,timer,0);
 	glutKeyboardFunc(keyboard);
+	glutIdleFunc(idle);
 	glutPassiveMotionFunc(mouse);
 	glutMainLoop();
 
@@ -55,25 +56,28 @@ void init()
 	{
 		for (int x = 0; x < Constants::BLOCK_NUM_WIDTH; x++)
 		{
-			blocks[y][x].posX = (float)x * 60 + blocks[y][x].width /2 + 10;
-			blocks[y][x].posY = (float)y * 20 + blocks[y][x].height /2 + 10;
-			blocks[y][x].color.r = 1.0f * x/Constants::BLOCK_NUM_WIDTH;
-			blocks[y][x].color.g = 1.0f - 1.0f * y/Constants::BLOCK_NUM_HEIGHT;
-			blocks[y][x].color.b = ((float)( x / Constants::BLOCK_NUM_WIDTH ) + (float)( y / Constants::BLOCK_NUM_HEIGHT )) / 2;
-			blocks[y][x].isBroken = false;
+			float posX = (float)x * 60 + blocks[y][x].width / 2 + 10;
+			float posY = (float)y * 20 + blocks[y][x].height / 2 + 10;
+			float r = 1.0f * x / Constants::BLOCK_NUM_WIDTH;
+			float g = 1.0f - 1.0f * y / Constants::BLOCK_NUM_HEIGHT;
+			float b = ((float)(x / Constants::BLOCK_NUM_WIDTH) + (float)(y / Constants::BLOCK_NUM_HEIGHT)) / 2;
+			Color col(r,g,b);
+			blocks[y][x].init(posX,posY,col,false);
 		}
 	}
-
 	objectManager.CreateBall(10,400, 400,scoreManager);
-
+	background.load("Images/background.png");
+	float ratio = (float)Constants::WIDTH / background.info.Width ;
+	background.scale.x *= ratio;
+	background.scale.y *= ratio;
+	cout << background.scale.x;
 }
 
 
 void display()
 {
-	glClear(GL_COLOR_BUFFER_BIT);
-	glClearColor(0, 0, 0, 0.0);
-	
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	background.draw();
 	if (scoreManager.isGameClear)
 	{
 		GUI::DrawString("Congratulations", Constants::WIDTH, Constants::HEIGHT, Constants::WIDTH / 2 - 70, Constants::HEIGHT / 2);
@@ -177,6 +181,11 @@ void resize(int w,int h)
 	glViewport(0,0,w,h);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluOrtho2D(0,w,h,0);
+	//gluOrtho2D(0,w,h,0);
+	glOrtho(0.0, Constants::WIDTH, Constants::HEIGHT, 0.0, -1.0, 1.0);
 }
 
+void idle(void)
+{
+	glutPostRedisplay();
+}

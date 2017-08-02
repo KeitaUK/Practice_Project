@@ -15,7 +15,7 @@ Item::Item(float x, float y)
 	posX = x;
 	posY = y;
 	
-	width = height = 10;
+	width = height = 15;
 	deltaX = 0;
 	deltaY =  5;
 }
@@ -32,8 +32,9 @@ void Item::draw()
 		return;
 	}
 
-	glColor4f(1,0,0,0.01f);
-	glRectf(posX - width/2 , posY - height/2 , posX + width /2,posY + height/2);
+//	glColor4f(1,0,0,0.01f);
+//	glRectf(posX - width/2 , posY - height/2 , posX + width /2,posY + height/2);
+	texture.draw(posX,posY);
 }
 void Item::move()
 {
@@ -69,5 +70,13 @@ void Item::collisionWithBar(Bar& bar,ScoreManager& scoreMgr,ObjectManager& objec
 	}
 }
 
+void Item::loadImage()
+{
+	texture.load("Images/item.png");
+	texture.scale.x = width;
+	texture.scale.y = height;
+	texture.vec.x = posX;
+	texture.vec.y = posY;
+}
 
 
