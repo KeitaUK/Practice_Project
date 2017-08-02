@@ -1,6 +1,8 @@
 #include "Block.h"
 #include <gl/freeglut.h>
 #include <stdio.h>
+#include <iostream>
+using namespace std;
 
 Block::Block()
 {
@@ -21,6 +23,7 @@ Block::Block(float x, float y, float w, float h)
 	posY = y;
 	width = w;
 	height = h;
+
 }
 
 
@@ -29,15 +32,27 @@ Block::~Block()
 {
 }
 
+void Block::init(float x, float y, Color col, bool isBreak)
+{
+	posX = x;
+	posY = y;
+	color = col;
+	isBroken = isBreak;
+	texture.load("Images/block.png");
+	texture.vec.x = x;
+	texture.vec.y = y;
+	texture.scale.x = width;
+	texture.scale.y = height;
+}
+
 void Block::draw()
 {
 	if (isBroken)
 		return;
 
-	glColor4f(color.r,color.g,color.b,0.0);
-
+	//glColor4f(color.r,color.g,color.b,0.0);
 	glRectf(posX - width/2, posY - height / 2,posX + width/2,posY + height/2);
-	
+	texture.draw();
 
 }
 

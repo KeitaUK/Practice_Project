@@ -5,6 +5,8 @@
 #include "Color.h"
 #include "Ball.h"
 #include "Constants.h"
+#include "Texture.h"
+
 class Bar
 {
 public:
@@ -13,9 +15,10 @@ public:
 	float width,height;
 	float posX, posY;
 	Color color;
-
+	Texture texture;
 	void reset();
 	void draw();
+	void loadImage();
 	void collisionWithBall(Ball& ball);
 	void move(float deltaX);
 

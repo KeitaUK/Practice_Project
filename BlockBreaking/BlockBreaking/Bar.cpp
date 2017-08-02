@@ -10,7 +10,7 @@ Bar::Bar()
 	posX = 250;
 	posY = 450;
 	width = 200;
-	height = 10;
+	height = 30;
 }
 
 
@@ -21,10 +21,10 @@ Bar::~Bar()
 void Bar::draw()
 {
 
-	glColor4f(color.r, color.g, color.b, 0.0);
+//	glColor4f(color.r, color.g, color.b, 0.0);
 
-	glRectf(posX - width / 2, posY - height / 2, posX + width / 2, posY + height / 2);
-
+	//glRectf(posX - width / 2, posY - height / 2, posX + width / 2, posY + height / 2);
+	texture.draw(posX,posY,width,height);
 }
 
 void Bar::collisionWithBall(Ball& ball)
@@ -68,4 +68,13 @@ void Bar::reset()
 	posY = 450;
 	width = 200;
 	height = 10;
+}
+
+void Bar::loadImage()
+{
+	texture.load("Images/bar.png");
+	texture.vec.x = posX;
+	texture.vec.y = posY;
+	texture.scale.x = width;
+	texture.scale.y = height;
 }
