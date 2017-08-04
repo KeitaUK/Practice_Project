@@ -21,7 +21,7 @@ Block::Block(float posX, float posY){
     GameObject("block");
 }
 
-void Block:: Drow(){
+void Block:: Draw(){
     glBegin(GL_POLYGON);
     glVertex2f(positionX, positionY);
     glVertex2f(positionX + scaleX /2, positionY);
@@ -42,7 +42,7 @@ float Block::GetScaleY(){
     return this->scaleY;
 }
 
-void Block::Collision(Ball* ball){
+void Block::Collision(Ball* ball, std::vector<Item>* items){
     
     if(ball->positionX + ball->GetRadius() < this->positionX + (scaleX / 2) &&
        ball->positionX - ball->GetRadius() > this->positionX - (scaleX / 2) &&
@@ -50,6 +50,8 @@ void Block::Collision(Ball* ball){
        ){
         ball->velocity->y *= -1;
         this->isHit = true;
+        items->emplace_back(*new Item(ball->positionX,ball->positionY));
+        
     }
     
 }

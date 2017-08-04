@@ -20,15 +20,16 @@ Item::Item(float posX,float posY){
     GameObject("item");
     positionX = posX;
     positionY = posY;
+    is_get = true;
 }
 
 void Item::Draw(){
     glBegin(GL_POLYGON);
-    glVertex2f(positionX + scaleX/2, positionY + scaleY/2);
+    glVertex2f(positionX, positionY + scaleY/2);
     glVertex2f(positionX + scaleX /2, positionY);
     glVertex2f(positionX, positionY - scaleY /2);
     glVertex2f(positionX - scaleX/2, positionY);
-    glVertex2f(positionX + scaleX/2, positionY + scaleY/2);
+    glVertex2f(positionX, positionY + scaleY/2);
     
     glEnd();
 }

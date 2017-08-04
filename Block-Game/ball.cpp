@@ -22,14 +22,14 @@ Ball::Ball(float posX,float posY){
     positionY = posY;
     
     //TODO: 初期速度をランダム始める様に変更する(謎エラーで動かん)
-//    velocity = new Vector2(((float)rand()/ RAND_MAX),((float)rand()/ RAND_MAX));
+    //    velocity = new Vector2(((float)rand()/ RAND_MAX),((float)rand()/ RAND_MAX));
     velocity = new Vector2(0,0);
-
-
+    
+    
 }
 
 //ボールの描画処理
-void Ball::Drow(){
+void Ball::Draw(){
     glBegin(GL_POLYGON);
     glVertex2f(positionX, positionY);
     for(int i = 0; i < 360; ++i){
@@ -56,15 +56,12 @@ void Ball::Collision(){
     }
     
     if(positionY + radius > WINDOW_HEIGHT){
-        
-        std::cout<< "GameOver" << std::endl;
         GameManager::getInstance().is_finished = true;
-        std::cout<< GameManager::getInstance().is_finished << std::endl;
     }
 }
 
 void Ball::Collision(Player* player){
-
+    
     if(abs(this->positionY - player->positionY) < this->radius &&
        player->positionX + player->GetscaleX()/2 > this->positionX &&
        player->positionX - player->GetscaleX()/2 < this->positionX
@@ -76,6 +73,7 @@ void Ball::Collision(Player* player){
 float Ball::GetRadius(){
     return this->radius;
 }
+
 
 
 

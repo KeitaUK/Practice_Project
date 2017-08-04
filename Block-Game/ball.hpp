@@ -21,15 +21,15 @@ public:
     Ball(float posX,float posY);
     
     Vector2* velocity;
-    void Drow();
+    void Draw();
     void Move();
     void Collision();
     void Collision(Player* player);
     float GetRadius();
-
+    
 private:
     float radius = 10;
-
+    
 };
 
 #endif /* ball_hpp */

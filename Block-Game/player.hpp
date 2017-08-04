@@ -16,10 +16,10 @@
 class Player : public GameObject{
 public:
     Player(float posX,float posY);
-    float moveX = 5;
-
+    float moveX = 20;
     
-    void Drow();
+    
+    void Draw();
     void MoveRight();
     void MoveLeft();
     float GetscaleX();

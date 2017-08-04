@@ -10,18 +10,20 @@
 #define block_hpp
 #include <string>
 #include <stdio.h>
+#include <vector>
 #include "GameObject.hpp"
 #include "ball.hpp"
+#include "item.hpp"
 
 class Block : public GameObject{
 public:
     Block();
     Block(float posX,float posY);
     bool isHit = false;
-
     
-    void Drow();
-    void Collision(Ball* ball);
+    
+    void Draw();
+    void Collision(Ball* ball,std::vector<Item>* items);
     float GetInterval();
     float GetScaleX();
     float GetScaleY();

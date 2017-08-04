@@ -20,7 +20,7 @@ public:
     float scaleX = 10;
     float scaleY = 10;
     
-    
+    bool is_get;
     void Draw();
     void Destroy();
 };

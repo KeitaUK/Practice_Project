@@ -25,7 +25,7 @@ float Player::GetscaleY(){
     return this->scaleY;
 }
 
-void Player::Drow(){
+void Player::Draw(){
     
     glBegin(GL_POLYGON);
     glVertex2f(positionX, positionY);
@@ -35,7 +35,7 @@ void Player::Drow(){
     glVertex2f(positionX - scaleX/2, positionY + scaleY /2);
     glVertex2f(positionX - scaleX/2 , positionY);
     glVertex2f(positionX, positionY);
-
+    
     glEnd();
 }
 

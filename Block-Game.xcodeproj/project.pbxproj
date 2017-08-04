@@ -15,6 +15,7 @@
 		2303B5A11F2C80EC0026CA5E /* block.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23F24FD11F22E563007E54D1 /* block.cpp */; };
 		2303B5A21F2C80EC0026CA5E /* Vector2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23F24FD61F2C5A9C007E54D1 /* Vector2.cpp */; };
 		2303B5A31F2C80EC0026CA5E /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23F24FD91F2C6B68007E54D1 /* GameObject.cpp */; };
+		234A93071F34699700B04809 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 234A93051F34699700B04809 /* Texture.cpp */; };
 		23909FE01F31C0CA00326854 /* Gui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23909FDE1F31C0CA00326854 /* Gui.cpp */; };
 		23909FE71F3307B700326854 /* item.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23909FE51F3307B700326854 /* item.cpp */; };
 /* End PBXBuildFile section */
@@ -32,6 +33,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		234A93051F34699700B04809 /* Texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Texture.cpp; sourceTree = "<group>"; };
+		234A93061F34699700B04809 /* Texture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Texture.hpp; sourceTree = "<group>"; };
 		23909FDE1F31C0CA00326854 /* Gui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Gui.cpp; sourceTree = "<group>"; };
 		23909FDF1F31C0CA00326854 /* Gui.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Gui.hpp; sourceTree = "<group>"; };
 		23909FE41F3302D000326854 /* GameManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameManager.h; sourceTree = "<group>"; };
@@ -104,6 +107,8 @@
 				23909FE41F3302D000326854 /* GameManager.h */,
 				23909FE51F3307B700326854 /* item.cpp */,
 				23909FE61F3307B700326854 /* item.hpp */,
+				234A93051F34699700B04809 /* Texture.cpp */,
+				234A93061F34699700B04809 /* Texture.hpp */,
 			);
 			path = "Block-Game";
 			sourceTree = "<group>";
@@ -178,6 +183,7 @@
 				23909FE71F3307B700326854 /* item.cpp in Sources */,
 				2303B59E1F2C80EC0026CA5E /* main.cpp in Sources */,
 				2303B59F1F2C80EC0026CA5E /* player.cpp in Sources */,
+				234A93071F34699700B04809 /* Texture.cpp in Sources */,
 				2303B5A01F2C80EC0026CA5E /* ball.cpp in Sources */,
 				2303B5A11F2C80EC0026CA5E /* block.cpp in Sources */,
 				2303B5A21F2C80EC0026CA5E /* Vector2.cpp in Sources */,
