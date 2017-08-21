@@ -7,6 +7,7 @@
 //
 
 #include "Texture.hpp"
+#include <string>
 
 Texture::Texture(){
     positionX = 0;
@@ -27,9 +28,9 @@ void Texture:: render()
 {
     static const GLfloat vtx[] = {
         200, 120,
-        440, 120,
-        440, 360,
-        200, 360,
+        400, 120,
+        400, 230,
+        200, 230,
     };
     glVertexPointer(2, GL_FLOAT, 0, vtx);
     
@@ -55,7 +56,7 @@ void Texture:: render()
     glDisable(GL_TEXTURE_2D);
 }
 
-void Texture::setupTexture( const char *file, const int width, const int height)
+void Texture::setupTexture(std::string file, const int width, const int height)
 {
     // Step2. 画像データのロード
     std::ifstream fstr(file, std::ios::binary);

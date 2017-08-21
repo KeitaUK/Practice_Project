@@ -35,11 +35,16 @@
 /* Begin PBXFileReference section */
 		234A93051F34699700B04809 /* Texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Texture.cpp; sourceTree = "<group>"; };
 		234A93061F34699700B04809 /* Texture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Texture.hpp; sourceTree = "<group>"; };
+		234A93091F35B4B900B04809 /* baord.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = baord.png; sourceTree = "<group>"; };
+		234A930A1F35B4B900B04809 /* osero_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = osero_black.png; sourceTree = "<group>"; };
+		234A930B1F35B4B900B04809 /* osero_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = osero_white.png; sourceTree = "<group>"; };
+		234DDDFC1F42CCF70080BD07 /* glpng.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = glpng.framework; path = ../../../../System/Library/Frameworks/glpng.framework; sourceTree = "<group>"; };
 		23909FDE1F31C0CA00326854 /* Gui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Gui.cpp; sourceTree = "<group>"; };
 		23909FDF1F31C0CA00326854 /* Gui.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Gui.hpp; sourceTree = "<group>"; };
 		23909FE41F3302D000326854 /* GameManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameManager.h; sourceTree = "<group>"; };
 		23909FE51F3307B700326854 /* item.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = item.cpp; sourceTree = "<group>"; };
 		23909FE61F3307B700326854 /* item.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = item.hpp; sourceTree = "<group>"; };
+		23C4664F1F42B8D600D14273 /* libopencv_highgui.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_highgui.dylib; path = ../../../../usr/local/Cellar/opencv/2.4.13.2/lib/libopencv_highgui.dylib; sourceTree = "<group>"; };
 		23F24FBC1F21D23B007E54D1 /* Block-Game */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Block-Game"; sourceTree = BUILT_PRODUCTS_DIR; };
 		23F24FBF1F21D23B007E54D1 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		23F24FC71F21D25A007E54D1 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
@@ -70,9 +75,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		234A93081F35B4B900B04809 /* osero_game_sprite */ = {
+			isa = PBXGroup;
+			children = (
+				234A93091F35B4B900B04809 /* baord.png */,
+				234A930A1F35B4B900B04809 /* osero_black.png */,
+				234A930B1F35B4B900B04809 /* osero_white.png */,
+			);
+			name = osero_game_sprite;
+			path = ../osero_game_sprite;
+			sourceTree = "<group>";
+		};
 		23F24FB31F21D23B007E54D1 = {
 			isa = PBXGroup;
 			children = (
+				234A93081F35B4B900B04809 /* osero_game_sprite */,
 				23F24FBE1F21D23B007E54D1 /* Block-Game */,
 				23F24FBD1F21D23B007E54D1 /* Products */,
 				23F24FC61F21D25A007E54D1 /* Frameworks */,
@@ -116,6 +133,8 @@
 		23F24FC61F21D25A007E54D1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				234DDDFC1F42CCF70080BD07 /* glpng.framework */,
+				23C4664F1F42B8D600D14273 /* libopencv_highgui.dylib */,
 				23F24FC71F21D25A007E54D1 /* GLUT.framework */,
 				23F24FC81F21D25A007E54D1 /* OpenGL.framework */,
 			);
@@ -289,6 +308,8 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				DEVELOPMENT_TEAM = "";
+				HEADER_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -300,6 +321,8 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				DEVELOPMENT_TEAM = "";
+				HEADER_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -16,6 +16,7 @@
 #include <vector>
 #include <cassert>
 #include <GLUT/GLUT.h>
+#include <string>
 #include "GameObject.hpp"
 
 const int g_windowWidth  = 640;
@@ -30,7 +31,7 @@ public:
     Texture(float posX,float posY);
     GLuint g_texID;
     void render();
-    void setupTexture( const char *file, const int width, const int height);
+    void setupTexture( std::string file, const int width, const int height);
 };
 
 #endif /* Texture_hpp */

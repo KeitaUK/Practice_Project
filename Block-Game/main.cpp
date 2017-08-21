@@ -7,6 +7,8 @@
 //
 
 #include <GLUT/GLUT.h>
+#include <string>
+
 #include "player.hpp"
 #include "ball.hpp"
 #include "block.hpp"
@@ -16,19 +18,16 @@
 #include "Constants.h"
 #include "GameManager.h"
 #include "Texture.hpp"
-#include <string>
-#include <cstdlib>
-#include <cmath>
-#include <fstream>
-#include <vector>
-#include <cassert>
+//#include "CvTexture.hpp"
+
+
 
 //グローバル変数の定義
 Player* player;
 Ball* ball;
 Block* blocks[BLOCK_WIDTH][BLOCK_HEIGHT];
 std::vector<Item> items;
-Texture tx;
+//Texture tx;
 
 //メソッドの宣言
 void display();
@@ -41,6 +40,7 @@ void keyboard(unsigned char key, int x, int y);
 void display()
 {
     glClear(GL_COLOR_BUFFER_BIT);
+    
     
     if(!GameManager::getInstance().is_finished)
     {
@@ -96,8 +96,6 @@ void init()
         }
     }
     
-//    tx = *new Texture();
-//    tx.setupTexture("sample.raw", 256, 256);
     
     glClearColor(0.0,0.0,0.0, 1.0);
     
@@ -135,6 +133,7 @@ void reshape(int w, int h)
 //キーボード入力を受け付ける
 void keyboard(unsigned char key, int x, int y)
 {
+    std::cout << "key is " << key << std::endl;
     if(key == 'a')
     {
         player->MoveLeft();
@@ -172,7 +171,6 @@ int main(int argc, char * argv[]) {
     glutKeyboardFunc(keyboard);//キーボード入力処理
     glutIdleFunc(idle); //コールバック関数の登録
     init(); //初期化処理
-    std::cout << argv[0] << std::endl;
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
     glutMainLoop();
