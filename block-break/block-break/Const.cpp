@@ -8,6 +8,3 @@
 
 #include "Const.hpp"
 
-//画面サイズ
-const int CWindowSize::WIDTH = 400;
-const int CWindowSize::HEIGHT = 500;

@@ -10,16 +10,19 @@
 #define Const_hpp
 
 #include <stdio.h>
+#include "System.hpp"
 
 //画面サイズ
-struct CWindowSize
-{
-    static const int WIDTH;
-    static const int HEIGHT;
-};
+static const Size CWindowSize {400, 500};
 
 //タイトル
-static const char WINDOW_TITLE[] = "OpenGLGame";	//ウィンドウタイトル
+static const char *CWindowTitle = "OpenGLGame";	//ウィンドウタイトル
+
+//扱う次元
+static const int DIM = 2;
+
+//タイマループ ミリ秒
+static const int CTImeStep = 20;
 
 
 #endif /* Const_hpp */
