@@ -10,18 +10,23 @@
 #define Bar_hpp
 
 #include <stdio.h>
-#include "System.hpp"
 
-class Bar : public Rect, public Shape
-{
-public:
+class Bar{
+private:
+    int x,y; //座標
     float speed; //移動スピード
     
-public:
-    Bar(int x, int y, int width, int height) : Rect(x, y, width, height){}
-    ~Bar(){}
-    virtual void draw();
+private:
+    void draw();
     void move();
+    
+public:
+    Bar(){
+        x = 100;
+        y = 100;
+    }
+    ~Bar();
+    void setSpeed(float s);
 };
 
 #endif /* Bar_hpp */

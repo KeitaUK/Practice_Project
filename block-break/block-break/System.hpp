@@ -33,37 +33,13 @@ struct Vector3
     int z;
 };
 
-//描画インターフェイス
-struct Shape
-{
-public:
-    virtual void draw() = 0;
-};
-
 //矩形
 struct Rect
 {
-public:
-    int x; //中心座標x
-    int y; //中心座標y
+    int x;
+    int y;
     int width;
     int height;
-    
-    int minX, minY, maxX, maxY;
-    
-    Rect(int x, int y, int width, int height)
-    {
-        this->x = x;
-        this->y = y;
-        this->width = width;
-        this->height = height;
-        
-        minX = x - width/2;
-        maxX = x + width/2;
-        minY = y - height/2;
-        maxY = y + height/2;
-    }
-    ~Rect();
 };
 
 //円

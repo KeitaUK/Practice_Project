@@ -9,18 +9,11 @@
 #include "Bar.hpp"
 #include <GLUT/glut.h>
 
-void Bar::move()
-{
+void Bar::move(){
     
 }
 
 
-void Bar::draw()
-{
-    glBegin(GL_QUADS);
-    glVertex2i(minX,minY);
-    glVertex2i(maxX,minY);
-    glVertex2i(maxX,maxY);
-    glVertex2i(minX,maxY);
-    glEnd();
+void Bar::draw(){
+
 }
