@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B91D37AC1F35654300C104D0 /* Bar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B91D37AA1F35654300C104D0 /* Bar.cpp */; };
 		B91D37B21F36B42300C104D0 /* Const.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B91D37B01F36B42300C104D0 /* Const.cpp */; };
+		B9B1BE4C1F67D26F00F345D5 /* System.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9B1BE4A1F67D26F00F345D5 /* System.cpp */; };
 		B9CCF3BE1F2F3AE100FDE02D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B9CCF3BD1F2F3AE100FDE02D /* main.cpp */; };
 		B9CCF3C61F2F3B3100FDE02D /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9CCF3C51F2F3B3100FDE02D /* GLUT.framework */; };
 		B9CCF3C81F2F3B3700FDE02D /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9CCF3C71F2F3B3700FDE02D /* OpenGL.framework */; };
@@ -31,6 +32,8 @@
 		B91D37AB1F35654300C104D0 /* Bar.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Bar.hpp; sourceTree = "<group>"; };
 		B91D37B01F36B42300C104D0 /* Const.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Const.cpp; sourceTree = "<group>"; };
 		B91D37B11F36B42300C104D0 /* Const.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Const.hpp; sourceTree = "<group>"; };
+		B9B1BE4A1F67D26F00F345D5 /* System.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = System.cpp; sourceTree = "<group>"; };
+		B9B1BE4B1F67D26F00F345D5 /* System.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = System.hpp; sourceTree = "<group>"; };
 		B9CCF3BA1F2F3AE100FDE02D /* block-break */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "block-break"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9CCF3BD1F2F3AE100FDE02D /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		B9CCF3C51F2F3B3100FDE02D /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
@@ -50,6 +53,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B91D37B31F36EC7300C104D0 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				B9CCF3BD1F2F3AE100FDE02D /* main.cpp */,
+				B91D37AA1F35654300C104D0 /* Bar.cpp */,
+				B91D37AB1F35654300C104D0 /* Bar.hpp */,
+				B91D37B01F36B42300C104D0 /* Const.cpp */,
+				B91D37B11F36B42300C104D0 /* Const.hpp */,
+				B9B1BE4A1F67D26F00F345D5 /* System.cpp */,
+				B9B1BE4B1F67D26F00F345D5 /* System.hpp */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
 		B9CCF3B11F2F3AE100FDE02D = {
 			isa = PBXGroup;
 			children = (
@@ -70,11 +87,7 @@
 		B9CCF3BC1F2F3AE100FDE02D /* block-break */ = {
 			isa = PBXGroup;
 			children = (
-				B9CCF3BD1F2F3AE100FDE02D /* main.cpp */,
-				B91D37AA1F35654300C104D0 /* Bar.cpp */,
-				B91D37AB1F35654300C104D0 /* Bar.hpp */,
-				B91D37B01F36B42300C104D0 /* Const.cpp */,
-				B91D37B11F36B42300C104D0 /* Const.hpp */,
+				B91D37B31F36EC7300C104D0 /* src */,
 			);
 			path = "block-break";
 			sourceTree = "<group>";
@@ -145,6 +158,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9B1BE4C1F67D26F00F345D5 /* System.cpp in Sources */,
 				B91D37B21F36B42300C104D0 /* Const.cpp in Sources */,
 				B9CCF3BE1F2F3AE100FDE02D /* main.cpp in Sources */,
 				B91D37AC1F35654300C104D0 /* Bar.cpp in Sources */,

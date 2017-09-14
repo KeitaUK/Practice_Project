@@ -9,10 +9,11 @@
 #include <iostream>
 #include <GLUT/GLUT.h>
 #include "Const.hpp"
+#include "Bar.hpp"
 
 //プロトタイプ宣言
 void glutSetup(void);
-void gameSetup(void);
+void init(void);
 void onRedisplay(void);
 void onReshape(int width, int height);
 void onKeyboard(unsigned char key, int x, int y);
@@ -22,19 +23,20 @@ void onMoution(int x, int y);
 void onPassiveMotion(int x, int y);
 void onSpecial(int key, int x, int y);
 void onTimer(int value);
+void callRedisplay(void);
 
-
+Bar *bar ;
 int main (int argc, char * argv[])
 {
-     //GLUT初期化
+    //GLUT初期化
     glutInit(&argc, argv);
-
+    
     //ウィンドウの設定、コールバック登録
     glutSetup();
     
-    gameSetup();
+    init();
     
-    //メインループ
+    //ウィンドウが閉じられるまでループ = イベント関数を呼ぶために必要
     glutMainLoop();
     
     return 0;
@@ -51,17 +53,13 @@ void glutSetup(void)
     
     //サイズ
     glutInitWindowSize(CWindowSize.width, CWindowSize.height);
-
+    
     //ディスプレイモード
     //（参考）http://wisdom.sakura.ne.jp/system/opengl/gl2.html
-    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
+    glutInitDisplayMode(GLUT_RGBA);
     
     //ウィンドウ生成
     glutCreateWindow(CWindowTitle);
-    
-    //画面初期化
-    glClearColor(1.0, 1.0, 1.0, 1.0);
-    glOrtho(0, CWindowSize.width, CWindowSize.height, 0, -1, 1);
     
     //コールバック関数の登録
     //（参考）http://wisdom.sakura.ne.jp/system/opengl/gl10.html
@@ -79,10 +77,10 @@ void glutSetup(void)
     
     //キーが離された時
     glutKeyboardUpFunc(onKeyboardUp);
-
+    
     //文字キー以外の特殊キー入力時
     glutSpecialFunc(onSpecial);
-
+    
     //ウィンドウサイズ変更時
     glutReshapeFunc(onReshape);
     
@@ -92,47 +90,37 @@ void glutSetup(void)
     //タイマー
     glutTimerFunc(CTImeStep, onTimer, 0);
     
-    //ウィンドウが閉じられるまでループ
-    glutMainLoop();
 }
 
 
-void gameSetup(void)
+void init(void)
 {
-
+    //画面初期化
+    glClearColor(1.0, 1.0, 1.0, 1.0);
+    glOrtho(0, CWindowSize.width, CWindowSize.height, 0, -1, 1);
     
-}
-
-
-void Point(int x,int y,float size){
-    glPointSize(size);
-    glBegin(GL_POINTS);
-    glVertex2i(x , y);
-    glEnd();
+    bar = new Bar(100, 100, 200, 100);
 }
 
 
 /*
- * 再描画
- */
-void callRedisplay()
-{
-    glutPostRedisplay();
-}
-
-
-/*
- * 再描画時呼ばれる
+ * 再描画時呼ばれる = Update
  */
 void onRedisplay(void)
 {
     //　バックバッファをクリアする色(背景色)の指定
-//    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-//    glColor4f(0.0f,0.0f,1.0f,1.0f);
-//    Point(50,50,2.0);
-//    glColor4f(1.0f,0.0f,0.0f,1.0f);
-//    Point(250,150,10.0);
-//    glFlush();
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glColor4f(0.0f,0.0f,1.0f,1.0f);
+    bar->draw();
+    glFlush();
+}
+
+/*
+ * 再描画
+ */
+void callRedisplay(void)
+{
+    glutPostRedisplay();
 }
 
 
@@ -145,9 +133,9 @@ void onReshape(int width, int height)
 }
 
 
- /*
-  * マウスイベント
-  */
+/*
+ * マウスイベント
+ */
 void onKeyboard(unsigned char key, int x, int y)
 {
     
